@@ -47,12 +47,11 @@ const App = () => {
                     >
                       {(provided) => (
                         <div
-                          className="store-container"
                           {...provided.dragHandleProps}
                           {...provided.draggableProps}
                           ref={provided.innerRef}
                         >
-                          <h3> {store.name} </h3>
+                          <StoreList {...store} />
                         </div>
                       )}
                     </Draggable>
@@ -67,5 +66,25 @@ const App = () => {
     </div>
   );
 };
+
+function StoreList({ name, items, id }) {
+  return (
+    <div>
+      <div className="store-container">
+        <h3> {name} </h3>
+      </div>
+
+      <div className="items-container">
+        {items.map((item, index) => {
+          return (
+            <div className="item-container" key={index}>
+              <h4> {item.name} </h4>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default App;
