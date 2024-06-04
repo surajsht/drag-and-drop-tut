@@ -22,11 +22,22 @@ const App = () => {
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {stores.map((store, idx) => {
                   return (
-                    <div key={idx}>
-                      <div className="store-container">
-                        <h3> {store.name} </h3>
-                      </div>
-                    </div>
+                    <Draggable
+                      key={store.id}
+                      draggableId={store.id}
+                      index={idx}
+                    >
+                      {(provided) => (
+                        <div
+                          className="store-container"
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          ref={provided.innerRef}
+                        >
+                          <h3> {store.name} </h3>
+                        </div>
+                      )}
+                    </Draggable>
                   );
                 })}
               </div>
