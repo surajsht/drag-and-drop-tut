@@ -69,21 +69,38 @@ const App = () => {
 
 function StoreList({ name, items, id }) {
   return (
-    <div>
-      <div className="store-container">
-        <h3> {name} </h3>
-      </div>
+    <Droppable droppableId={id}>
+      {(provided) => (
+        <div {...provided.droppableProps} ref={provided.innerRef}>
+          <div className="store-container">
+            <h3> {name} </h3>
+          </div>
 
-      <div className="items-container">
-        {items.map((item, index) => {
-          return (
-            <div className="item-container" key={index}>
-              <h4> {item.name} </h4>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+          <div className="items-container">
+            {items.map((item, index) => {
+              {
+                return (
+                  <Draggable draggableId={item.id} index={index} key={item.id}>
+                    {(provided) => (
+                      <div
+                        className="item-container"
+                        key={index}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                      >
+                        <h4> {item.name} </h4>
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              }
+            })}
+          </div>
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 }
 
