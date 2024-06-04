@@ -17,17 +17,21 @@ const App = () => {
             <h1>Shopping List</h1>
           </div>
 
-          <div>
-            {stores.map((store, idx) => {
-              return (
-                <div key={idx}>
-                  <div className="store-container">
-                    <h3> {store.name} </h3>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <Droppable droppableId="ROOT" type="group">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {stores.map((store, idx) => {
+                  return (
+                    <div key={idx}>
+                      <div className="store-container">
+                        <h3> {store.name} </h3>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     </div>
